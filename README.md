@@ -48,7 +48,7 @@
   * oracle
 
 
-### security
+### theoretic cryptographic attacks
 
   * encryption schemes
     * eavesdropping (EAV)
