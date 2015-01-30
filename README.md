@@ -78,3 +78,17 @@
   * extended Euclidean algorithm
   * Chinese remainder theorem
   * discrete logarithm
+
+# Figures
+
+### eavesdropping (EAV)
+![eavesdropping (EAV)](figures/EAV.png)
+
+### known-plaintext attack (KPA)
+![known-plaintext attack (KPA)](figures/KPA.png)
+
+### chosen-plaintext attack (CPA)
+![chosen-plaintext attack (CPA)](figures/CPA.png)
+
+### chosen-ciphertext attack (CCA)
+![chosen-ciphertext attack (CCA)](figures/CCA.png)
