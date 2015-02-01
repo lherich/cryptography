@@ -36,6 +36,7 @@
           * Diffie-Hellman (DH)
           * ElGamal
           * digital signature algorithm (DSA)
+        * lamport one-time signature scheme
 
 
 ### concepts
@@ -46,6 +47,7 @@
   * pseudo-random functions (PRF)
   * pseudo-random permutations (PRP)
   * oracle
+  * random oracle model
 
 
 ### theoretic cryptographic attacks
@@ -78,6 +80,7 @@
   * extended Euclidean algorithm
   * Chinese remainder theorem
   * discrete logarithm
+  * quadratic residue
 
 # Figures
 
@@ -92,3 +95,6 @@
 
 ### chosen-ciphertext attack (CCA)
 ![chosen-ciphertext attack (CCA)](figures/CCA.png)
+
+### adaptive-chosen-message attack (ACMA)
+![adaptive-chosen-message attack (ACMA)](figures/ACMA.png)
