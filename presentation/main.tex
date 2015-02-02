@@ -77,13 +77,41 @@
 \end{frame}
 
 
+%
+% Encryption schemes
+%
 \section{Encryption schemes}
 \begin{frame}
     \centering
     \huge{Encryption schemes}
 \end{frame}
 
+
+% Eavesdropping (EAV)
 \subsection{Eavesdropping (EAV)}
+
+\begin{frame}{Eavesdropping (EAV)}
+    \begin{block}{The adversarial indistinguishability experiment $PrivK_{A,\Pi}^{EAV}$}
+        $\Pi = (Gen, Enc, Dec)$ is any private-key encryption scheme\\
+        $A$ is the adversary\\
+        $M$ message space\\
+        $n$ is the security paramter\\
+        
+        \begin{enumerate}
+            \item $(m_0,m_1) \in M \leftarrow A$
+            \item $k \overset{\$}{\leftarrow} Gen(1^n)$
+            \item $b \overset{\$}{\leftarrow} \{0,1\}$
+            \item $c \leftarrow A^{Enc_{k}(m_b)}$
+                \item $if(b = b')\ output\ 1$ \\
+                $else\ output\ 0$
+        \end{enumerate}
+        
+        indistinguishable encryptions in the presence of an eavesdropper: if for all probabilistic polynomial-time adversaries $A$:\\
+        $Pr[PrivK_{A,\Pi}^{EAV}(n) = 1] \leq \frac{1}{2} + negl(n)$
+        $\Leftrightarrow \left | Pr[output(PrivK_{A,\Pi}^{EAV}) = 1] - Pr[output(PrivK_{A,\Pi}^{EAV}(n,1) = 1)] \right | \leq negl(n)$
+    \end{block}
+\end{frame}
+
 \begin{frame}{Eavesdropping (EAV)}
     
     \begin{figure}[h]
@@ -94,7 +122,9 @@
 \end{frame}
 
 
+% Known-plaintext attack (KPA)
 \subsection{Known-plaintext attack (KPA)}
+
 \begin{frame}{Known-plaintext attack (KPA)}
     
     \begin{figure}[h]
@@ -105,7 +135,9 @@
 \end{frame}
 
 
+% Chosen-plaintext attack (CPA)
 \subsection{Chosen-plaintext attack (CPA)}
+
 \begin{frame}{Chosen-plaintext attack (CPA)}
     
     \begin{figure}[h]
@@ -116,7 +148,28 @@
 \end{frame}
 
 
+
+% Chosen-ciphertext attack (CCA)
 \subsection{Chosen-ciphertext attack (CCA)}
+\begin{frame}{Chosen-ciphertext attack (CCA)}
+    \begin{block}{The CCA indistinguishability experiment $ PrivK_{A,\Pi}^{cca}(n) $}
+        $\Pi = (Gen, Enc, Dec)$ is any private-key encryption scheme\\
+        $A$ is the adversary\\
+        $n$ is the security paramter\\
+        \begin{enumerate}
+            \item $k \overset{\$}{\leftarrow} Gen(1^n)$
+            \item $(m_{0},m_{1}) \leftarrow A^{Enc_{k}(.), Dec_{k}(.)}(ask, 1^{n})$
+            \item $b \overset{\$}{\leftarrow} \{0, 1\}$
+            \item $c \leftarrow Enc_{k}(m_{b})$
+            \item $b' \leftarrow A^{Enc_{k}(.), Dec_{k}(.)}(guess, c)$
+            \item $if(b = b')\ output\ 1$ \\
+            $else\ output\ 0$
+        \end{enumerate}
+        CCA-secure: if for all probabilistic polynomial-time adversaries $A$:\\
+        $ PrivK_{A,\Pi}^{cca}(n) = 1 \leq \frac{1}{2} + negl(n) $
+    \end{block}
+\end{frame}
+
 \begin{frame}{Chosen-ciphertext attack (CCA)}
     
     \begin{figure}[h]
@@ -124,38 +177,41 @@
         \includegraphics[width=0.8\textwidth]{figures/CCA.png}
         \caption{Chosen-ciphertext attack (CCA)}
     \end{figure}
-    
+    CBC, OFB and CTR-Mode are not CCA2-secure encryption schemes for every F (see assignment 6).
 \end{frame}
 
-\begin{frame}{Chosen-ciphertext attack (CCA)}
-    \begin{block}{The CCA indistinguishability experiment $ PrivK_{A,\Pi}^{cca}(n) $}
-        $\Pi = (Gen, Enc, Dec)$ is any private-key encryption scheme\\
-        $A$ is the adversary\\
-        $n$ is the security paramter\\
-        \begin{enumerate}
-            \item $ k \overset{\$}{\leftarrow} Gen(1^n) $
-            \item $ m_{0}, m_{1} \leftarrow A^{Enc_{k}(.), Dec_{k}(.)}(ask, 1^{n}) $
-            \item $ b \overset{\$}{\leftarrow} \{0, 1\} $
-            \item $ c \leftarrow Enc_{k}(m_{b}) $
-            \item $ b' \leftarrow A^{Enc_{k}(.), Dec_{k}(.)}(guess, c) $
-            \item $ if\ b == b'\ output\ 1 $ \\
-            $ else\ output\ 0 $
-        \end{enumerate}
-    \end{block}
-\end{frame}
 
+%
+% Signature schemes
+%
 \section{Signature schemes}
+
 \begin{frame}
     \centering
     \huge{Signature schemes}
 \end{frame}
 
+% Adaptive-chosen-message attack (ACMA)
 \subsection{Adaptive-chosen-message attack (ACMA)}
+
+\begin{frame}{Adaptive-chosen-message attack (ACMA)}
+    \begin{block}{The message authentication experiment Mac-forge$_{A,\Pi}(n)$}
+        \begin{enumerate}
+            \item $k \overset{\$}{\leftarrow} \{0,1\}^n$
+            \item $(m, t) \leftarrow A^{Mac_{k}}(1^{n})$
+            \item $if(m \notin Q\ and\ (Vrfy_{k}(m, t) = 1)\ output\ 1$\\
+            $otherwise\ output\ 0$
+        \end{enumerate}
+        
+        A MAC-scheme Pi is secure against adaptive-chosen-message-attacks, if for all probabilistic polynomial-time adversaries A, there exists a negligible function negl, such that:\\
+        $Pr[Mac-force_{A,\Pi}(n) = 1] \leq negl(n)$
+    \end{block}
+\end{frame}
 
 \begin{frame}{Adaptive-chosen-message attack (ACMA)}
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.5\textwidth]{figures/ACMA.png}
+        \includegraphics[width=0.8\textwidth]{figures/ACMA.png}
         \caption{Adaptive-chosen-message attack (ACMA)}
     \end{figure}
 \end{frame}
