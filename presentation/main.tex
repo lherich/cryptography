@@ -92,16 +92,15 @@
 
 \begin{frame}{Eavesdropping (EAV)}
     \begin{block}{The adversarial indistinguishability experiment $PrivK_{A,\Pi}^{EAV}$}
-        $\Pi = (Gen, Enc, Dec)$ is any private-key encryption scheme\\
-        $A$ is the adversary\\
-        $M$ message space\\
-        $n$ is the security paramter\\
+        $\Pi = (Gen, Enc, Dec)$ is any private-key encryption scheme, $A$ is the adversary, $M$ message space, $n$ is the security paramter\\
         
         \begin{enumerate}
             \item $(m_0,m_1) \in M \leftarrow A$
             \item $k \overset{\$}{\leftarrow} Gen(1^n)$
             \item $b \overset{\$}{\leftarrow} \{0,1\}$
-            \item $c \leftarrow A^{Enc_{k}(m_b)}$
+            \item c is given to A
+            \item $b' \leftarrow A$
+            \item $c \leftarrow Enc_{k}(m_b)$
                 \item $if(b = b')\ output\ 1$ \\
                 $else\ output\ 0$
         \end{enumerate}
@@ -119,13 +118,13 @@
         \includegraphics[width=0.8\textwidth]{figures/EAV.png}
         \caption{Eavesdropping (EAV)}
     \end{figure}
-    IND-EAV can be constructed by a PRG
+    IND-EAV can be constructed by a PRG\footnote{Katz and Lindell: Introduction to Modern Cryptography, 2007 p. 73}
 \end{frame}
 
 
 % Known-plaintext attack (KPA)
 \subsection{Known-plaintext attack (KPA)}
-
+    
 \begin{frame}{Known-plaintext attack (KPA)}
     
     \begin{figure}[h]
@@ -140,12 +139,35 @@
 \subsection{Chosen-plaintext attack (CPA)}
 
 \begin{frame}{Chosen-plaintext attack (CPA)}
+    \begin{block}{The CPA indistinguishability experiment $PrivK_{A,\Pi}^{CPA}(n)$:}
+        $\Pi = (Gen, Enc, Dec)$ is any private-key encryption scheme\\
+        $A$ is the adversary\\
+        $n$ is the security paramter\\
+        
+        \begin{enumerate}
+            \item $k \overset{\$}{\leftarrow} Gen(1^n)$
+            \item $(m_{0},m_{1}) \leftarrow A^{Enc_{k}(.)}(1^{n})$
+            \item $b \overset{\$}{\leftarrow} \{0,1\}$
+            \item $c \leftarrow Enc_{k}(m_{b})$
+            \item c is given to A
+            \item $b' \leftarrow A^{Enc_{k}(.)}(c)$
+            \item $if(b = b')\ output\ 1$ \\
+            $else\ output\ 0$
+        \end{enumerate}
+        
+        CPA-secure: if for all probabilistic polynomial-time adversaries $A$:\\
+        $Pr[PrivK_{A,\Pi}^{CPA}(n) = 1] \leq \frac{1}{2} + negl(n)$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Chosen-plaintext attack (CPA)}
     
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.8\textwidth]{figures/CPA.png}
         \caption{Chosen-plaintext attack (CPA)}
     \end{figure}
+    IND-CPA can be constructed by a PRF\footnote{Katz and Lindell: Introduction to Modern Cryptography, 2007 p. 89}
 \end{frame}
 
 
@@ -178,7 +200,8 @@
         \includegraphics[width=0.8\textwidth]{figures/CCA.png}
         \caption{Chosen-ciphertext attack (CCA)}
     \end{figure}
-    CBC, OFB and CTR-Mode are not CCA2-secure encryption schemes for every F (see assignment 6).
+    CBC, OFB and CTR-Mode are not CCA2-secure encryption schemes for every F (see assignment 6).\\
+    CCA1/CCA2 can be constructed by a PRF\\
 \end{frame}
 
 
