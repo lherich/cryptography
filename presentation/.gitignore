@@ -5,6 +5,8 @@
 !.gitignore
 !*.png
 !*.tex
+!*.pdf
+!*.jpg
 
 # ...even if they are in subdirectories
 !*/
